@@ -42,20 +42,32 @@ app.post('/products', (req, res) => {
     res.status(201).json(newProduct);
 });
 
-// Endpoint in updating a product by ID
-app.put('/products/:id', (req,res)) => {
+// Endpoint in updating the Product ID
+app.put('/products/:id', (req, res) => {
     const id = parseInt(req.params.id);
-    const productIndex = product.findIndex(p => p.id === id);
+    const productIndex = products.findIndex(p => p.id === id);
 
     if (productIndex === -1) {
-        return res.status(404).json({ message : "Product not found" });
+        return res.status(404).json({ message: "Product not found" });
     }
 
     products[productIndex].name = req.body.name;
     products[productIndex].price = req.body.price;
 
     res.status(200).json(products[productIndex]);
-}
+});
+
+app.delete('/products/:id', (req,res) => {
+    const id = parseInt(req.params.id);
+    const productIndex = products.findIndex(p => p.id === id);
+
+    if (prodictIndex === -1)
+        return res.status(404).json({ message: "Product not found" });
+
+    product.splice(productIndex, 1);
+    res.status204.send();
+
+});
 
 
 app.listen(port,() => console.log(`Server running at http://localhost:${port}`))
