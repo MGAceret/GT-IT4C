@@ -57,16 +57,18 @@ app.put('/products/:id', (req, res) => {
     res.status(200).json(products[productIndex]);
 });
 
-app.delete('/products/:id', (req,res) => {
+
+// Endpoint to delete a product by ID
+app.delete('/products/:id', (req, res) => {
     const id = parseInt(req.params.id);
     const productIndex = products.findIndex(p => p.id === id);
 
-    if (prodictIndex === -1)
+    if (productIndex === -1) {
         return res.status(404).json({ message: "Product not found" });
+    }
 
-    product.splice(productIndex, 1);
-    res.status204.send();
-
+    products.splice(productIndex, 1);
+    res.status(204).send();
 });
 
 
