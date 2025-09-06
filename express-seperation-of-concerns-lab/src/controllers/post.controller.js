@@ -33,6 +33,16 @@ export const updatePost = (req, res) => {
     res.json(post);
 };
 
+export const partiallyUpdatePost = (req, res) => {
+    const postId = parseInt(req.params.id, 10);
+    // req.body will contain the fields to update, e.g., { title: "New Title" }
+    const post = postService.partiallyUpdatePost(postId, req.body);
+    if (!post) {
+        return res.status(404).json({ message: 'Post not found.' });
+    }
+    res.json(post);
+};
+
 export const deletePost = (req, res) => {
     const postId = parseInt(req.params.id, 10);
     const success = postService.deletePost(postId);
@@ -41,3 +51,6 @@ export const deletePost = (req, res) => {
     }
     res.status(204).send();
 };
+
+
+
