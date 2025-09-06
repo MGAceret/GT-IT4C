@@ -41,7 +41,7 @@ app.get('/posts/:id', (req, res) => {
 
 //PUT /posts/:id (finds and updates a post)
 app.put('/posts/:id', (req,res) => {
-    const postId = parseInt(req.params.is, 10);
+    const postId = parseInt(req.params.id, 10);
     const postIndex = posts.findIndex(p => p.id === postId);
     if (postIndex === -1) {
         return res.status(404).json({ message: 'Post not found.' });
