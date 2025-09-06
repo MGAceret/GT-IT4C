@@ -10,10 +10,6 @@ app.use(express.json());
 // Mount the post routes
 app.use('/posts', postRoutes);
 
-app.listen(port, () => {
-    console.log(`Server is running on http://localhost:${port}`);
-});
-
 // In-memory "database"
 let posts = [
     { id: 1, title: 'First Post', content: 'This is the first post.' },
