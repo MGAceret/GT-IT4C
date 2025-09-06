@@ -20,13 +20,27 @@ export const createPost = (postData) => {
     return newPost;
 };
 
+// This is the old update function for PUT
 export const updatePost = (id, postData) => {
     const postIndex = posts.findIndex(p => p.id === id);
     if (postIndex === -1) {
         return null;
     }
-    posts[postIndex] = { ...posts[postIndex], ...postData };
+    // For PUT, we can keep it as is, but for PATCH, we need to merge
+    posts[postIndex] = { ...posts[postIndex], title: postData.title, content: postData.content };
     return posts[postIndex];
+};
+
+// *** NEW FUNCTION FOR PATCH ***
+export const partiallyUpdatePost = (id, updates) => {
+    const postIndex = posts.findIndex(p => p.id === id);
+    if (postIndex === -1) {
+        return null; // Post not found
+    }
+    // Merge the existing post with the updates
+    const updatedPost = { ...posts[postIndex], ...updates };
+    posts[postIndex] = updatedPost;
+    return updatedPost;
 };
 
 export const deletePost = (id) => {
