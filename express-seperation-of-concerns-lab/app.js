@@ -1,12 +1,14 @@
 // app.js
 import express from 'express';
+import dotenv from 'dotenv';
 import postRoutes from './src/routes/post.routes.js';
 // *** IMPORT THE NEW COMMENT ROUTES ***
 import commentRoutes from './src/routes/comment.routes.js';
 
+dotenv.config();
 
 const app = express();
-const port = 3000;
+const port = proccess.env.PORT || 3000;
 
 app.use(express.json());
 
