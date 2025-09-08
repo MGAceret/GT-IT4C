@@ -1,6 +1,7 @@
 // app.js
 import express from 'express';
 import dotenv from 'dotenv';
+import morgan from 'morgan';
 import postRoutes from './src/routes/post.routes.js';
 // *** IMPORT THE NEW COMMENT ROUTES ***
 import commentRoutes from './src/routes/comment.routes.js';
@@ -10,6 +11,7 @@ dotenv.config();
 const app = express();
 const port = proccess.env.PORT || 3000;
 
+app.use(morgan('dev'));
 app.use(express.json());
 
 // Mount the post routes
