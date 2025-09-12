@@ -11,8 +11,14 @@ dotenv.config();
 const app = express();
 const port = process.env.PORT || 3000;
 
-app.use(morgan('dev'));
 app.use(express.json());
+
+// Morgan in different environments
+if (process.env.NODE_ENV === 'development') {
+    app.use(morgan('dev'));
+} else {
+    app.use(morgan('combined'));
+}
 
 // Mount the post routes
 app.use('/posts', postRoutes);
@@ -76,9 +82,6 @@ app.delete('/posts/:id', (req, res) => {
     res.status(204).send();
 });
 
-if (process.env.NODE_ENV === 'development') {
-    app.use(morgan('dev'));
-}
 
 app.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}`);
