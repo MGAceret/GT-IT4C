@@ -76,6 +76,10 @@ app.delete('/posts/:id', (req, res) => {
     res.status(204).send();
 });
 
+if (process.env.NODE_ENV === 'development') {
+    app.use(morgan('dev'));
+}
+
 app.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}`);
 });
