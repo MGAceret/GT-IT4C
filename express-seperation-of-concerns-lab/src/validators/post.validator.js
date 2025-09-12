@@ -1,7 +1,7 @@
 import { body } from 'express-validator';
 
 // Validation rules for creating a post
-const createPostRules = [
+export const createPostRules = [
     body('title')
         .isString().withMessage('Title must be a string.')
         .trim()
@@ -13,7 +13,7 @@ const createPostRules = [
         .notEmpty().withMessage('Content is required.')
 ];
 
-const updatePostRules = [
+export const updatePostRules = [
     body('title')
         .optional() // This field is not required
         .trim()
