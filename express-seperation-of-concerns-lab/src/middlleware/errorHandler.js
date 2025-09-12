@@ -1,5 +1,5 @@
 // src middleware/errorHandler.js
-import ApiError from '..utils/ApiError.js';
+import ApiError from '../utils/ApiError.js';
 
 const errorHandler = (err, req, res, next) => {
     console.error(err);
