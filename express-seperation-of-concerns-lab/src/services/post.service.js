@@ -1,5 +1,7 @@
 // src/services/post.service.js
 
+import NotFoundError from "../utils/NotFoundError.js";
+
 let posts = [
     { id: 1, title: 'First Post', content: 'This is the first post.' },
     { id: 2, title: 'Second Post', content: 'This is the second post.' }
@@ -10,8 +12,18 @@ export const getAllPosts = () => {
     return posts;
 };
 
+/*
 export const getPostById = (id) => {
     return posts.find(p => p.id === id);
+};
+*/
+
+export const getPostById = (id) => {
+    const post = posts.find(p => p.id === id);
+    if (!post) {
+        throw new NotFoundError(`Post with ID ${id} not found.`);
+    }
+    return post;
 };
 
 export const createPost = (postData) => {
