@@ -28,7 +28,8 @@ const createPostRules = [
     body('title')
         .isString().withMessage('Title must be a string.')
         .trim()
-        .notEmpty().withMessage('Title is required.'),
+        .notEmpty().withMessage('Title is required.')
+        .isLength({min: 5, max: 100}).withMessage('The Title must be between 5 and 100 characcters.'),
     body('content')
         .isString().withMessage('Content must be a string.')
         .trim()
