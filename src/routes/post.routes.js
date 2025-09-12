@@ -25,14 +25,15 @@ router.post('/:postId/comments', commentController.createCommentForPost);
 // Validation rules for creating a post
 const createPostRules = [
     body('title')
-        .trim() // Sanitizer to remove leading/trailing whitespace
-        .notEmpty().withMessage('Title is required.')
-        .isString().withMessage('Title must be a string.'),
+        .isString().withMessage('Title must be a string.')
+        .trim()
+        .notEmpty().withMessage('Title is required.'),
     body('content')
+        .isString().withMessage('Content must be a string.')
         .trim()
         .notEmpty().withMessage('Content is required.')
-        .isString().withMessage('Content must be a string.')
 ];
+
 
 // Apply the rules as middleware to the POST route
 router.post('/', createPostRules, postController.createPost);
