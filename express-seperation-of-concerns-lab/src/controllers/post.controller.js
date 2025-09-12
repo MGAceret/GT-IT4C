@@ -1,12 +1,14 @@
 // src/controllers/post.controller.js
 import { validationResult } from 'express-validator';
 import * as postService from '../services/post.service.js';
+import asyncHandler from '../utils/asyncHandler.js';
 
-export const getAllPosts = (req, res) => {
+export const getAllPosts = asyncHandler(async (req, res) => {
     const posts = postService.getAllPosts();
     res.json(posts);
-};
+});
 
+/*
 export const getPostById = (req, res) => {
     const postId = parseInt(req.params.id, 10);
     const post = postService.getPostById(postId);
@@ -15,8 +17,15 @@ export const getPostById = (req, res) => {
     }
     res.json(post);
 };
+*/
 
-export const createPost = (req, res) => {
+export const getPostById = asyncHandler(async (req, res) => {
+    const postId = parseInt(req.params.id, 10);
+    const post = postService.getPostById(postId);
+    res.json(post);
+});
+
+export const createPost = asyncHandler(async (req, res) => {
     // Check for validation errors
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -29,7 +38,7 @@ export const createPost = (req, res) => {
     // if (!title || !content) { ... }
     const newPost = postService.createPost({ title, content });
     res.status(201).json(newPost);
-};
+});
 
 /*
 export const updatePost = (req, res) => {
@@ -44,7 +53,7 @@ export const updatePost = (req, res) => {
 
 // src/controllers/post.controller.js
 
-export const updatePost = (req, res) => {
+export const updatePost = asyncHandler(async (req, res) => {
     // Check for validation errors first
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -58,9 +67,9 @@ export const updatePost = (req, res) => {
         return res.status(404).json({ message: 'Post not found.' });
     }
     res.json(post);
-};
+});
 
-export const partiallyUpdatePost = (req, res) => {
+export const partiallyUpdatePost = asyncHandler(async (req, res) => {
     const postId = parseInt(req.params.id, 10);
     // req.body will contain the fields to update, e.g., { title: "New Title" }
     const post = postService.partiallyUpdatePost(postId, req.body);
@@ -68,16 +77,16 @@ export const partiallyUpdatePost = (req, res) => {
         return res.status(404).json({ message: 'Post not found.' });
     }
     res.json(post);
-};
+});
 
-export const deletePost = (req, res) => {
+export const deletePost = asyncHandler(async (req, res) => {
     const postId = parseInt(req.params.id, 10);
     const success = postService.deletePost(postId);
     if (!success) {
         return res.status(404).json({ message: 'Post not found.' });
     }
     res.status(204).send();
-};
+});
 
 
 
