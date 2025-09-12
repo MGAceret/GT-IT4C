@@ -3,8 +3,9 @@ import express from 'express';
 import morgan from 'morgan';
 import config from './src/config/index.js'
 import postRoutes from './src/routes/post.routes.js';
-// *** IMPORT THE NEW COMMENT ROUTES ***
 import commentRoutes from './src/routes/comment.routes.js';
+import errorHandler from './src/middlleware/errorHandler.js';
+
 
 const app = express();
 const port = config.port;
@@ -20,6 +21,8 @@ if (config.nodeEnv === 'development') {
 
 // Mount the post routes
 app.use('/posts', postRoutes);
+
+app.use(errorHandler);
 
 // *** MOUNT THE NEW COMMENT ROUTES ***
 app.use('/comments', commentRoutes);
