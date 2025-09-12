@@ -1,11 +1,13 @@
 // src/routes/post.routes.js
 import { Router } from 'express';
+import { body } from 'express-validator';
 import * as postController from '../controllers/post.controller.js';
 // *** IMPORT THE COMMENT CONTROLLER ***
 import * as commentController from '../controllers/comment.controller.js';
+import { updatePost } from '../services/post.service.js';
 
 const router = Router();
-
+/*
 // --- Post Routes ---
 router.get('/', postController.getAllPosts);
 router.post('/', postController.createPost);
@@ -19,5 +21,41 @@ router.delete('/:id', postController.deletePost);
 router.get('/:postId/comments', commentController.getCommentsByPostId);
 // POST /posts/:postId/comments
 router.post('/:postId/comments', commentController.createCommentForPost);
+*/
+
+// Validation rules for creating a post
+const createPostRules = [
+    body('title')
+        .isString().withMessage('Title must be a string.')
+        .trim()
+        .notEmpty().withMessage('Title is required.'),
+    body('content')
+        .isString().withMessage('Content must be a string.')
+        .trim()
+        .notEmpty().withMessage('Content is required.')
+];
+
+const updatePostRules = [
+    body('title')
+        .optional() // This field is not required
+        .trim()
+        .notEmpty().withMessage('Title cannot be empty.')
+        .isString().withMessage('Title must be a string.'),
+    body('content')
+        .optional()
+        .trim()
+        .notEmpty().withMessage('Content cannot be empty.')
+        .isString().withMessage('Content must be a string.')
+];
+
+
+// Apply the rules as middleware to the POST route
+router.post('/', createPostRules, postController.createPost);
+
+router.get('/', postController.getAllPosts);
+router.get('/:id', postController.getPostById);
+/*router.put('/:id', postController.updatePost); */
+router.put('/:id', updatePostRules, postController.updatePost);
+router.delete('/:id', postController.deletePost);
 
 export default router;
