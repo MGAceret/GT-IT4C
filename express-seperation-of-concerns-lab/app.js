@@ -1,20 +1,18 @@
 // app.js
 import express from 'express';
-import dotenv from 'dotenv';
 import morgan from 'morgan';
+import config from './src/config/index.js'
 import postRoutes from './src/routes/post.routes.js';
 // *** IMPORT THE NEW COMMENT ROUTES ***
 import commentRoutes from './src/routes/comment.routes.js';
 
-dotenv.config();
-
 const app = express();
-const port = process.env.PORT || 3000;
+const port = config.port;
 
 app.use(express.json());
 
 // Morgan in different environments
-if (process.env.NODE_ENV === 'development') {
+if (config.nodeEnv === 'development') {
     app.use(morgan('dev'));
 } else {
     app.use(morgan('combined'));
