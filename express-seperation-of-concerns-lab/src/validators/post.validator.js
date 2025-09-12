@@ -6,7 +6,17 @@ export const createPostRules = [
         .isString().withMessage('Title must be a string.')
         .trim()
         .notEmpty().withMessage('Title is required.')
-        .isLength({min: 5, max: 100}).withMessage('The Title must be between 5 and 100 characcters.'),
+        .isLength({min: 5, max: 100}).withMessage('The Title must be between 5 and 100 characcters.')
+        .custom(value => {
+            const forbiddenWords = ['spam', 'advertisement'];
+            const lowerCaseTitle = value.toLowerCase();
+            for (const word of forbiddenWords) {
+                if (lowerCaseTitle.includes(word)) {
+                    throw new Error(`The title cannot contain the word "${word}".`);
+                }
+            }
+            return true; // If validation is passed
+        }),
     body('content')
         .isString().withMessage('Content must be a string.')
         .trim()
