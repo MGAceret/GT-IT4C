@@ -31,7 +31,27 @@ export const createPost = (req, res) => {
     res.status(201).json(newPost);
 };
 
+/*
 export const updatePost = (req, res) => {
+    const postId = parseInt(req.params.id, 10);
+    const post = postService.updatePost(postId, req.body);
+    if (!post) {
+        return res.status(404).json({ message: 'Post not found.' });
+    }
+    res.json(post);
+};
+*/
+
+// src/controllers/post.controller.js
+
+export const updatePost = (req, res) => {
+    // Check for validation errors first
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+    }
+
+    // If data is valid, proceed with update logic
     const postId = parseInt(req.params.id, 10);
     const post = postService.updatePost(postId, req.body);
     if (!post) {
