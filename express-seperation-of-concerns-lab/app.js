@@ -2,9 +2,10 @@
 import express from 'express';
 import morgan from 'morgan';
 import config from './src/config/index.js'
-import postRoutes from './src/routes/post.routes.js';
-import commentRoutes from './src/routes/comment.routes.js';
+import postRoutes from './src/api/v1/routes/post.routes.js';
+import commentRoutes from './src/api/v1/routes/comment.routes.js';
 import errorHandler from './src/middlleware/errorHandler.js';
+import v1PostRoutes from './src/api/v1/routes/post.routes.js';
 
 
 const app = express();
@@ -21,6 +22,8 @@ if (config.nodeEnv === 'development') {
 
 // Mount the post routes
 app.use('/posts', postRoutes);
+
+app.use('/api/v1/posts', v1PostRoutes);
 
 app.use(errorHandler);
 
