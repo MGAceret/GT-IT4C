@@ -6,7 +6,7 @@ import postRoutes from './src/api/v1/routes/post.routes.js';
 import commentRoutes from './src/api/v1/routes/comment.routes.js';
 import errorHandler from './src/middlleware/errorHandler.js';
 import v1PostRoutes from './src/api/v1/routes/post.routes.js';
-
+import v2PostRoutes from './src/api/v2/routes/post.routes.js'
 
 const app = express();
 const port = config.port;
@@ -24,6 +24,8 @@ if (config.nodeEnv === 'development') {
 app.use('/posts', postRoutes);
 
 app.use('/api/v1/posts', v1PostRoutes);
+
+app.use ('/api/v2/posts', v2PostRoutes)
 
 app.use(errorHandler);
 
