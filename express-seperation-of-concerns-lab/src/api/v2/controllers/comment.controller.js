@@ -1,4 +1,4 @@
-// src/api/v1/controllers/comment.controller.js
+// src/controllers/comment.controller.js
 import * as commentService from '../../../services/comment.service.js';
 
 export const getAllComments = (req, res) => {

@@ -1,4 +1,4 @@
-// src/api/v1/routes/post.routes.js
+// src/routes/post.routes.js
 import { Router } from 'express';
 import * as postController from '../controllers/post.controller.js';
 import * as commentController from '../controllers/comment.controller.js';

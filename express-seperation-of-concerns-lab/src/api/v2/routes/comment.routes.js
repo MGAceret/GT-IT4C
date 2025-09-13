@@ -1,4 +1,4 @@
-// src/api/v1/routes/comment.routes.js
+// src/routes/comment.routes.js
 import { Router } from 'express';
 import * as commentController from '../controllers/comment.controller.js';
 
