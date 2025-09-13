@@ -6,7 +6,7 @@ import asyncHandler from '../../../utils/asyncHandler.js';
 export const getAllPosts = asyncHandler(async (req, res) => {
     const posts = postService.getAllPosts();
     const v2Posts = posts.map(post => ({ id: post.id, title: post.title, body: post.content }));
-    res.json(v2posts);
+    res.json(v2Posts);
 });
 
 /*
