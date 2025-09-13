@@ -1,5 +1,5 @@
 // src/controllers/post.controller.js
-import { validationResult } from 'express-validator';
+import { body, validationResult } from 'express-validator';
 import * as postService from '../../../services/post.service.js';
 import asyncHandler from '../../../utils/asyncHandler.js';
 
@@ -40,12 +40,6 @@ export const createPost = asyncHandler(async (req, res) => {
     const newPost = postService.createPost({ title, content: body });
     res.status(201).json({ id: newPost.id, title: newPost.title, body: newPost.content });
 });
-
-export const createPostRules = [
-    body('body') // Changed from content
-    .trim()
-    .notEmpty().withMessage('Body is required.')
-];
 
 /*
 export const updatePost = (req, res) => {

@@ -1,4 +1,4 @@
-// src/api/v1/controllers/post.controller.js
+// src/controllers/post.controller.js
 import { validationResult } from 'express-validator';
 import * as postService from '../../../services/post.service.js';
 import asyncHandler from '../../../utils/asyncHandler.js';

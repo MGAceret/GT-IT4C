@@ -17,7 +17,7 @@ export const createPostRules = [
             }
             return true; // If validation is passed
         }),
-    body('content')
+    body('body')
         .isString().withMessage('Content must be a string.')
         .trim()
         .notEmpty().withMessage('Content is required.')
