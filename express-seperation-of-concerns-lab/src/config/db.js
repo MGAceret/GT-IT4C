@@ -1,4 +1,4 @@
-// Example src/config/index.js
+// Example src/config/db.js
 import dotenv from 'dotenv';
 import mysql from 'mysql2/promise';
 
