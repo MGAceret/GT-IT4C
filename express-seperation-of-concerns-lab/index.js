@@ -1,94 +1,17 @@
 // index.js
 import express from 'express';
-import morgan from 'morgan';
-import config from './src/config/index.js'
-import postRoutes from './src/api/v1/routes/post.routes.js';
-import commentRoutes from './src/api/v1/routes/comment.routes.js';
-import errorHandler from './src/middlleware/errorHandler.js';
-import v1PostRoutes from './src/api/v1/routes/post.routes.js';
-import v2PostRoutes from './src/api/v2/routes/post.routes.js'
+import postRoutes from './src/routes/post.routes.js';
+import { testConnection } from './src/config/db.js'; // Import the test function
 
 const app = express();
-const port = config.port;
+const port = 3000;
 
 app.use(express.json());
-
-// Morgan in different environments
-if (config.nodeEnv === 'development') {
-    app.use(morgan('dev'));
-} else {
-    app.use(morgan('combined'));
-}
 
 // Mount the post routes
 app.use('/posts', postRoutes);
 
-app.use('/api/v1/posts', v1PostRoutes);
-
-app.use ('/api/v2/posts', v2PostRoutes)
-
-app.use(errorHandler);
-
-// *** MOUNT THE NEW COMMENT ROUTES ***
-app.use('/comments', commentRoutes);
-
-// In-memory "database"
-let posts = [
-    { id: 1, title: 'First Post', content: 'This is the first post.' },
-    { id: 2, title: 'Second Post', content: 'This is the second post.' }
-];
-let nextId = 3;
-
-// POST /posts (adds a new post to the array)
-app.post('/posts', (req,res) => {
-    const { title, content } = req.body;
-    if (!title || !content) {
-        return res.status(400).json({ message : 'Title and content are required.'});
-    }
-    const newPost = { id: nextId++, title, content };
-    posts.push(newPost);
-    res.status(201).json(newPost);
-});
-
-// GET /posts (returns the full array)
-app.get('/posts', (req, res) => {
-    res.json(posts);
-});
-
-// GET /posts/:id (finds and returns a single post)
-app.get('/posts/:id', (req, res) => {
-    const postId = parseInt(req.params.id, 10);
-    const post = posts.find(p => p.id === postId);
-    if (!post) {
-        return res.status(404).json({ message: 'Post not found' });
-    }
-    res.json(post);
-})
-
-//PUT /posts/:id (finds and updates a post)
-app.put('/posts/:id', (req,res) => {
-    const postId = parseInt(req.params.id, 10);
-    const postIndex = posts.findIndex(p => p.id === postId);
-    if (postIndex === -1) {
-        return res.status(404).json({ message: 'Post not found.' });
-    }
-    const { title, content } = req.body;
-    posts[postIndex] = { ...posts[postIndex], title: title || posts[postIndex].title, content: content || posts[postIndex].content };
-    res.json(posts[postIndex]);
-});
-
-// DEELTE /posts/:id (removes a post from the array)
-app.delete('/posts/:id', (req, res) => {
-    const postId = parseInt(req.params.id, 10);
-    const postIndex = posts.findIndex(p => p.id === postId);
-    if (postIndex === -1 ) {
-        return res.status(404).json ({ message: 'Post not Found.'});
-    }
-    posts.splice(postIndex, 1);
-    res.status(204).send();
-});
-
-
 app.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}`);
+    testConnection(); // Test the database connection on startup
 });
