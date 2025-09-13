@@ -1,4 +1,4 @@
-// app.js
+// index.js
 import express from 'express';
 import morgan from 'morgan';
 import config from './src/config/index.js'
