@@ -1,6 +1,7 @@
 // src/controllers/post.controller.js
 import * as postService from '../services/post.service.js';
 import { ApiResponse } from '../utils/ApiResponse.js';
+import asyncHandler from 'express-async-handler';
 
 export const getAllPosts = async (req, res) => {
     try {
@@ -13,15 +14,14 @@ export const getAllPosts = async (req, res) => {
     }
 };
 
-export const getPostById = async (req, res) => {
-    try {
+export const getPostById = asyncHandler(async (req, res) => {
     const postId = parseInt(req.params.id, 10);
     const post = await postService.getPostById(postId);
-    res.json(post);
-    } catch (error) {
-        res.status(500).json ({ message: 'Error retrieving posts', error: error.message });
-    }
-};
+
+    return res
+        .status(200)
+        .json(new ApiResponse(200, post, "Post retrieved successfully"));
+});
 
 export const createPost = async (req, res) => {
     try {
