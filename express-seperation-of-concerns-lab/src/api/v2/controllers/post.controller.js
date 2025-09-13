@@ -5,7 +5,8 @@ import asyncHandler from '../../../utils/asyncHandler.js';
 
 export const getAllPosts = asyncHandler(async (req, res) => {
     const posts = postService.getAllPosts();
-    res.json(posts);
+    const v2Posts = posts.map(post => ({ id: post.id, title: post.title, body: post.content }));
+    res.json(v2posts);
 });
 
 /*
@@ -33,12 +34,18 @@ export const createPost = asyncHandler(async (req, res) => {
     }
 
     // This part only runs if validation passes
-    const { title, content } = req.body;
+    const { title, body } = req.body;
     // We can remove the manual check because the validator handles it
     // if (!title || !content) { ... }
-    const newPost = postService.createPost({ title, content });
-    res.status(201).json(newPost);
+    const newPost = postService.createPost({ title, content: body });
+    res.status(201).json({ id: newPost.id, title: newPost.title, body: newPost.content });
 });
+
+export const createPostRules = [
+    body('body') // Changed from content
+    .trim()
+    .notEmpty().withMessage('Body is required.')
+];
 
 /*
 export const updatePost = (req, res) => {
