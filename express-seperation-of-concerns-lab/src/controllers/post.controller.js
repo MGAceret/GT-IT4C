@@ -25,13 +25,11 @@ export const getPostById = async (req, res) => {
 
 export const createPost = async (req, res) => {
     try {
-        const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-        return res.status(400).json({ errors: errors.array() });
-    }
-    const { title, content } = req.body;
-    const newPost = await postService.createPost({ title, content });
-    res.status(201).json(newPost);
+        // The data is guaranteed to be valid here
+        const newPost = await postService.createPost(req.body);
+        return res
+            .status(201)
+            .json(new ApiResponse(201, newPost, "Post created successfully"))
     } catch (error) {
         res.status(500).json ({ message: 'Error retrieving posts', error: error.message });
     }
