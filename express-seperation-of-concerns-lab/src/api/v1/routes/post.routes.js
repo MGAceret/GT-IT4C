@@ -1,10 +1,9 @@
-// src/routes/post.routes.js
+// src/api/v1/routes/post.routes.js
 import { Router } from 'express';
 import * as postController from '../controllers/post.controller.js';
 import * as commentController from '../controllers/comment.controller.js';
-import { updatePost } from '../services/post.service.js';
+import { updatePost } from '../../../services/post.service.js';
 import { createPostRules, updatePostRules } from '../validators/post.validator.js';
-
 
 const router = Router();
 
