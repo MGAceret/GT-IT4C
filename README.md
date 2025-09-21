@@ -6,5 +6,14 @@ output for this Midterm Examination.
 Part 1 of the Laboratory:
 - Created a database "blogdatabase" and its tables being the "posts" and "users"
 - Altered the posts table for further modifications 
-- Installed dotenv for .env file, and mysql2, then hide the said files and their installation through .gitignore
+- Installed the required npms
+- Created javascript files regarding users for services, controllers, and routes
+- (Serivce) Added functionality for creating users, getting user by Id and by multiple.
+- (Controller) Added functionalities just like the Service with the use of asyncHandler as the wrapper
+- (Routes) Added links according to controller functions being POST for createUser, and GET for displaying User's Id and all users
+- Modified index.js in order to allow the created javascripts to be mounted through app.use at the path of /api/users.
+- Modified validator middle javascript in order to include authorId to be part of the validation
+- Modified post service javascript to include authorId in creating the post via the createPost function. Additionally added an error in case the said Id does not exists
+----------------------------------------------------
+Challenges:
 - 
