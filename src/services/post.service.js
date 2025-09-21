@@ -1,5 +1,6 @@
 // src/services/post.service.js
 import pool from '../config/db.js';
+import { ApiError } from '../utils/ApiError.js';
 
 export const getAllPosts = async () => {
     const [posts] = await pool.query('SELECT * FROM posts');
