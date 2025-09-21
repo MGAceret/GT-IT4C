@@ -2,12 +2,37 @@
 import pool from '../config/db.js';
 
 export const getAllPosts = async () => {
-    const [posts] = await pool.query('SELECT * FROM posts');
+    const [posts] = await pool.query(`
+        SELECT 
+            p.id,
+            p.title,
+            p.content,
+            u.username AS authorUsername,
+            u.email AS authorEmail
+        FROM 
+            posts p
+        JOIN
+            users u ON p.authorId = u.id;
+        `);
     return posts;
 };
 
 export const getPostById = async (id) => {
-    const [rows] = await pool.query('SELECT * FROM posts WHERE id = ?', [id]);
+    const [rows] = await pool.query(`
+        SELECT 
+            p.id,
+            p.title,
+            p.content,
+            u.username AS authorUsername,
+            u.email AS authorEmail
+        FROM 
+            posts p 
+        JOIN
+            users u ON p.authorId = u.id;            
+        WHERE 
+            id = ?
+        
+        `, [id]);
     return rows[0] || null;
 };
 
