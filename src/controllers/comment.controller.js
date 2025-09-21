@@ -14,7 +14,7 @@ export const getCommentsByPostId = (req, res) => {
 
 export const createCommentForPost = (req, res) => {
     const postId = parseInt(req.params.postId, 10);
-    const { text } = req.body;
+    const { text, authorId } = req.body;
 
     if (!text || !authorId) {
         return res.status(400).json({ message: 'Both text and authorId are required.' });

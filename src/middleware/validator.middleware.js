@@ -30,10 +30,10 @@ export const validatePost = [
 ];
 
 export const validateComment = [
-    body('content')
+    body('text')
         .trim()
         .notEmpty()
-        .withMessage('Content is required.'),
+        .withMessage('Comment is required.'),
     body('authorId')
         .isInt({ min: 1 })
         .withMessage('A valid author ID is required')

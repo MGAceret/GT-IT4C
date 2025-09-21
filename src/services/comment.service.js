@@ -4,6 +4,8 @@ import { getUserById } from './user.service.js'
 
 let nextId = 1;
 
+const comments = [];
+
 export const getAllComments = () => {
     return comments;
 };
@@ -16,12 +18,12 @@ export const createComment = (postId, commentData) => {
     // Validate whether the post exists
     const post = getPostById(postId);
     if (!post) {
-        throw error;
+        return null;
     }
 
-    const user = getUserById(authorId);
+    const user = getUserById(commentData.authorId);
     if (!user) {
-        throw error;
+        return null;
     }
     
     const newComment = { id: nextId++, postId, ...commentData };
