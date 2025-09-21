@@ -1,6 +1,6 @@
 // src/services.user.service.js
 import db from '../config/db.js';
-import ApiError from '../utils/ApiError.js';
+import { ApiError } from '../utils/ApiError.js';
 
 // Creating a User by inserting username and email
 export const createUser = async(userData) => {
