@@ -20,6 +20,7 @@ export const createUser = async(userData) => {
     }
 };
 
+// Fetching user according to its Id
 export const getUserById = async(id) => {
     const [rows] = await db.query('SELECT * FROM users WHERE id = ?', [id]);
 
@@ -30,7 +31,14 @@ export const getUserById = async(id) => {
     return rows[0];
 };
 
+// Fetching all created users
 export const getAllUsers = async () => {
     const [users] = await db.query('SELECT * FROM users');
     return users;
+};
+
+// Fetching all posts by specific user
+export const getPostsByUser = async (userId) => {
+    const [posts] = await db.query('SELECT * FROM posts WHERE authorId = ?', [userId]);
+    return posts;
 };

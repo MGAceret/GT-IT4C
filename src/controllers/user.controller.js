@@ -17,3 +17,8 @@ export const getAllUsers = asyncHandler(async (req, res) => {
     const users = await userService.getAllUsers();
     res.status(200).json(new ApiResponse(true, 'Multiple Users fetched successfully', users));
 });
+
+export const getPostsByUser = asyncHandler(async (req, res) => {
+    const postUser = await userService.getPostsByUser(req.params.userId);
+    res.status(200).json(new ApiResponse(true, 'Posts by specific Author fetched successfully.', postUser));
+});
