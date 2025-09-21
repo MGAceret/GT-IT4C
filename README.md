@@ -15,10 +15,10 @@ Part 1 of the Laboratory:
 - Modified validator middle javascript in order to include authorId to be part of the validation
 - Modified post service javascript to include authorId in creating the post via the createPost function. Additionally added an error in case the said Id does not exists
 ----------------------------------------------------
-Challenges:
-- #1 Get All Posts by a specific author
+## Challenges:
+### 1 - Get All Posts by a specific author
     - Added a functionality that allows fetching multiple that are specifically posted by a singular author
     - Used :userId as the indicator of finding the author and their posts
     - In my case, postman had responded with a 200 displayed 2 posts created by John Doe
 
-- 
+### 2 - Associate Comments with Users
