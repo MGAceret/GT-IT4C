@@ -14,16 +14,16 @@ export const getCommentsByPostId = (req, res) => {
 
 export const createCommentForPost = (req, res) => {
     const postId = parseInt(req.params.postId, 10);
-    const { text } = req.body;
+    const { text, authorId } = req.body;
 
-    if (!text) {
-        return res.status(400).json({ message: 'Comment text is required.' });
+    if (!text || !authorId) {
+        return res.status(400).json({ message: 'Both text and authorId are required.' });
     }
 
-    const newComment = commentService.createComment(postId, { text });
+    const newComment = commentService.createComment(postId, { text, authorId });
 
     if (!newComment) {
-        return res.status(404).json({ message: 'Post not found.' });
+        return res.status(404).json({ message: 'Post or author not found.' });
     }
 
     res.status(201).json(newComment);

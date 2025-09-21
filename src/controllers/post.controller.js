@@ -1,9 +1,11 @@
 // src/controllers/post.controller.js
 import * as postService from '../services/post.service.js';
+import { ApiResponse } from '../utils/ApiResponse.js';
+import asyncHandler from 'express-async-handler';
 
 export const getAllPosts = async (req, res) => {
     try {
-        const posts = await postSerice.getAllPosts();
+        const posts = await postService.getAllPosts();
         res.json(posts);
     } catch (error) {
         res.status(500).json({ message: 'Error retrieving posts', error: error.message });

@@ -14,6 +14,11 @@ export const validatePost = [
         .notEmpty()
         .withMessage('Content is required.'),
 
+    // Author Id must be valid    
+    body('authorId')
+        .isInt({ min: 1 })
+        .withMessage('A valid author ID is required'),
+
     // This function handles the result of the validations
     (req, res, next) => {
         const errors = validationResult(req);
@@ -22,4 +27,14 @@ export const validatePost = [
         }
         next();
     },
+];
+
+export const validateComment = [
+    body('text')
+        .trim()
+        .notEmpty()
+        .withMessage('Comment is required.'),
+    body('authorId')
+        .isInt({ min: 1 })
+        .withMessage('A valid author ID is required')
 ];
