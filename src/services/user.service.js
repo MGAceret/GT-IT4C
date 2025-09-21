@@ -7,7 +7,7 @@ export const createUser = async(userData) => {
     const { username, email } = userData;
 
     try {
-        const insertUser = await db.query('INSERT INTO users (username, email) VALUES (?, ?)', [username, email]);
+        const [insertUser] = await db.query('INSERT INTO users (username, email) VALUES (?, ?)', [username, email]);
 
     const newUserId = insertUser.insertId;
     return await getUserById(newUserId);
@@ -21,7 +21,7 @@ export const createUser = async(userData) => {
 };
 
 export const getUserById = async(id) => {
-    const [rows] = await pool.query('SELECT * FROM users WHERE id = ?', [id]);
+    const [rows] = await db.query('SELECT * FROM users WHERE id = ?', [id]);
 
     if (rows.length == 0) {
         throw new ApiError(404, 'User not found.');
@@ -31,6 +31,6 @@ export const getUserById = async(id) => {
 };
 
 export const getAllUsers = async () => {
-    const [users] = await pool.query('SELECT * FROM users');
+    const [users] = await db.query('SELECT * FROM users');
     return users;
 };
