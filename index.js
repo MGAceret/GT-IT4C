@@ -11,7 +11,7 @@ const port = 3000;
 app.use(express.json());
 
 // Mount the post routes
-app.use('/posts', postRoutes);
+app.use('/api/posts', postRoutes);
 // Mount the user routes
 app.use('/api/users', userRoutes);
 
