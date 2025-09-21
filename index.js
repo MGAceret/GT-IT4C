@@ -1,6 +1,7 @@
 // index.js
 import express from 'express';
 import postRoutes from './src/routes/post.routes.js';
+import userRoutes from './src/routes/user.routes.js';
 import { testConnection } from './src/config/db.js'; 
 import { errorHandler } from './src/middleware/errorHandler.middleware.js';
 
@@ -11,6 +12,8 @@ app.use(express.json());
 
 // Mount the post routes
 app.use('/posts', postRoutes);
+// Mount the user routes
+app.use('/api/users', userRoutes);
 
 app.use(errorHandler);
 
