@@ -28,3 +28,6 @@ Part 1 of the Laboratory:
     - Modified createComment function in the service layer in order to include the user rather than just the comment
     - For controller, only added another condition of including authorId for the error
     - And router, added respective routes such as creating comment via POST, and getting user Id via GET.
+
+### 3 - Populate Author Data in Post Responses
+    - 
