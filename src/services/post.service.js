@@ -22,7 +22,7 @@ export const createPost = async (postData) => {
         const newPostId = result.insertId;
         return getPostById(newPostId);
     } catch(error) {
-        if (error.code === 'ER_NO_REFERENCE_ROW_2') {
+        if (error.code === 'ER_NO_REFERENCED_ROW_2') {
             throw new ApiError(400, 'Invalid author ID. User does not exist.');
         }
         throw error;
