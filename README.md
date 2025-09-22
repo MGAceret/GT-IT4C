@@ -39,3 +39,8 @@ output for this Midterm Examination.
             "authorUsername": "john doe",
             "authorEmail": "john.doe@example.com"
         }
+
+----------------------------------------------------
+
+## Part 2 of the Laboratory
+- I had already created a table 'comments' in response to the 2nd challenge of the first laboratory. Will alter the table to include the missing column and constraint
