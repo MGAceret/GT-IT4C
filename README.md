@@ -3,7 +3,7 @@ For ITElective 4 created by Matthew Gerard P. Aceret from IT4B.
 This is a continuation from Lab no. 7 regarding the migration to Database created a new repository for a cleaner
 output for this Midterm Examination.
 
-Part 1 of the Laboratory:
+## Part 1 of the Laboratory:
 - Created a database "blogdatabase" and its tables being the "posts" and "users"
 - Altered the posts table for further modifications 
 - Installed the required npms
@@ -30,4 +30,12 @@ Part 1 of the Laboratory:
     - And router, added respective routes such as creating comment via POST, and getting user Id via GET.
 
 ### 3 - Populate Author Data in Post Responses
-    - 
+    - Thanks to the sample syntax from the hint given on the third challenge, I have modified the two functions  (getAllPosts and getPost by Id)
+    - Upon execution it had managed to display
+        {
+            "id": 1,
+            "title": "A Post by John",
+            "content": "This post is linked to an author.",
+            "authorUsername": "john doe",
+            "authorEmail": "john.doe@example.com"
+        }
