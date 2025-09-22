@@ -16,7 +16,7 @@ app.use('/api/posts', postRoutes);
 // Mount the user routes
 app.use('/api/users', userRoutes);
 // Mount the comments routes
-app.use('/api', commentRoutes);
+app.use('/api/comments', commentRoutes);
 
 app.use(errorHandler);
 
