@@ -48,4 +48,7 @@ output for this Midterm Examination.
 - Added validation result handler for the validation middleware
 - Refactored all functionalities in comment controller to be wrapped in asyncHandler
 - Modified both the post routes and index file to allow creation and validation of comments.
-- 
+- For testing, executing with appropriate authorId resulted in status 201. Unknown authorId resulted in status 400 with its respective message of post or user does not exist.
+- Part 5 no. 5 & 6 had a routing conflict with part 4 no. 2... Needed to modify the routes in both index and comment routes.
+- Lastly, confirmed that the 'text' had been stored in the database:
+![alt text](image.png)
