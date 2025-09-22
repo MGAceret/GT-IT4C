@@ -44,3 +44,8 @@ output for this Midterm Examination.
 
 ## Part 2 of the Laboratory
 - I had already created a table 'comments' in response to the 2nd challenge of the first laboratory. Will alter the table to include the missing column and constraint
+- Changed all of the functions in comment service to be an async function
+- Added validation result handler for the validation middleware
+- Refactored all functionalities in comment controller to be wrapped in asyncHandler
+- Modified both the post routes and index file to allow creation and validation of comments.
+- 

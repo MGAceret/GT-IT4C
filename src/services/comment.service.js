@@ -1,6 +1,6 @@
 // src/services/comment.service.js
 import pool from '../config/db.js';
-import ApiError from '../utils/ApiError.js';
+import { ApiError } from '../utils/ApiError.js';
 
 export const getAllComments = async () => {
     const [rows] = await pool.query('SELECT * FROM comments');
