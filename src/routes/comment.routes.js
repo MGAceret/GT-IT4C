@@ -6,7 +6,7 @@ import { validateComment } from '../middleware/validator.middleware.js';
 const router = Router();
 
 // Route for fetching all comments
-router.get('/', commentController.getAllComments);
+router.get('/comments', commentController.getAllComments);
 // Route for fetching specific post
 router.get('/posts/:postId/comments', commentController.getCommentsByPostId);
 // Route for adding a comment on a post (authorId included)
