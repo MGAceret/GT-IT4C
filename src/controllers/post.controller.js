@@ -21,7 +21,7 @@ export const getPostById = asyncHandler(async (req, res) => {
         .json(new ApiResponse(200, post, "Post retrieved successfully"));
 });
 
-export const createPost = ayncHandler(async (req, res) => {
+export const createPost = asyncHandler(async (req, res) => {
     
     const authorId = req.user.id;
     const postData = req.body;
