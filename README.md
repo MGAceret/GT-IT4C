@@ -1,1 +1,1 @@
-# Migrating Comments Laboratory
+# User Registration and Password Laboratory
