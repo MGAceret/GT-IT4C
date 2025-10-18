@@ -1,6 +1,7 @@
 // src/services.user.service.js
 import db from '../config/db.js';
 import { ApiError } from '../utils/ApiError.js';
+import bcrypt from 'bcrypt';
 
 // Creating a User by inserting username and email
 export const createUser = async(userData) => {
@@ -20,25 +21,44 @@ export const createUser = async(userData) => {
     }
 };
 
-// Fetching user according to its Id
-export const getUserById = async(id) => {
-    const [rows] = await db.query('SELECT * FROM users WHERE id = ?', [id]);
-
-    if (rows.length == 0) {
-        throw new ApiError(404, 'User not found.');
-    }
-
-    return rows[0];
-};
-
-// Fetching all created users
-export const getAllUsers = async () => {
-    const [users] = await db.query('SELECT * FROM users');
-    return users;
-};
 
 // Fetching all posts by specific user
 export const getPostsByUser = async (userId) => {
     const [posts] = await db.query('SELECT * FROM posts WHERE authorId = ?', [userId]);
     return posts;
 };
+
+export const registerUser = async (userData) => {
+    const { username, email, password } = userData;
+    try {
+        const saltRounds = 10;
+        const hashedPassword = await bcrypt.hash(password, saltRounds);
+
+        const [result] = await db.query (
+            'INSERT INTO users (username, email, password) VALUES (?, ?, ?)',
+            [username, email, hashedPassword]
+        );
+
+        const newUser = await getUserById(result.insertId);
+        return newUser;
+
+    } catch (error) {
+        if (error.code === 'ER_DUP_ENTRY') {
+            throw new ApiError(409, "Username or email already exists.");
+        }
+        throw error;
+    }
+};
+
+export const getUserById = async (id) => {
+    const [rows] = await db.query('SELECT id, username, email, createdAt FROM users WHERE id = ?', [id]);
+    if (rows.length === 0) {
+        throw new ApiError(404, "User not found");
+    }
+    return rows[0];
+};
+
+export const getAllUsers = async () => {
+    const [users] = await db.query ('SELECT id, username, email, createdAt FROM users');
+    return users;
+}
