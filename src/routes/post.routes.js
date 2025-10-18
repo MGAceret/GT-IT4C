@@ -7,7 +7,7 @@ import { createPostRules, updatePostRules } from '../validators/post.validator.j
 import { validatePost  } from '../middleware/validator.middleware.js';
 import { createCommentForPost } from '../controllers/comment.controller.js';
 import { validateComment } from '../middleware/validator.middleware.js';
-
+import { authMiddleware } from '../middleware/auth.middleware.js';
 
 const router = Router();
 
@@ -23,5 +23,8 @@ router.put('/:id', updatePostRules, postController.updatePost);
 router.delete('/:id', postController.deletePost);
 
 router.post('/:postId/comments', validateComment, createCommentForPost);
+
+// Protected Route
+router.post('/', authMiddleware, validatePost, postController.createPost);
 
 export default router;
