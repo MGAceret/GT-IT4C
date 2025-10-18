@@ -21,16 +21,14 @@ export const getPostById = asyncHandler(async (req, res) => {
         .json(new ApiResponse(200, post, "Post retrieved successfully"));
 });
 
-export const createPost = async (req, res) => {
-    try {
-        const newPost = await postService.createPost(req.body);
-        return res
-            .status(201)
-            .json(new ApiResponse(201, newPost, "Post created successfully"))
-    } catch (error) {
-        res.status(500).json ({ message: 'Error retrieving posts', error: error.message });
-    }
-};
+export const createPost = ayncHandler(async (req, res) => {
+    
+    const authorId = req.user.id;
+    const postData = req.body;
+
+    const newPost = await postService.createPost(postData, authorId);
+    res.status(201).json(new ApiResponse(201, newPost, "Post created Successfully!"));
+});
 
 export const updatePost = async (req, res) => {
     try {
