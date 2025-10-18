@@ -11,6 +11,9 @@ const port = 3000;
 
 app.use(express.json());
 
+// Mount the authorized users
+app.use('/api/auth', authRoutes)
+
 // Mount the post routes
 app.use('/api/posts', postRoutes);
 // Mount the user routes
