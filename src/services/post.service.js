@@ -37,8 +37,8 @@ export const getPostById = async (id) => {
     return rows[0] || null;
 };
 
-export const createPost = async (postData) => {
-    const { title, content, authorId } = postData;
+export const createPost = async (postData, authorId) => {
+    const { title, content } = postData;
     try {
         const [result] = await pool.query(
             'INSERT INTO posts (title, content, authorId) VALUES (?, ?, ?)',
