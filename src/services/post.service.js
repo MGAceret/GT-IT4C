@@ -13,7 +13,7 @@ export const getAllPosts = async () => {
         FROM 
             posts p
         JOIN
-            users u ON p.authorId = u.id;
+            users u ON p.authorId = u.id
         `);
     return posts;
 };
@@ -29,9 +29,9 @@ export const getPostById = async (id) => {
         FROM 
             posts p 
         JOIN
-            users u ON p.authorId = u.id;            
+            users u ON p.authorId = u.id            
         WHERE 
-            id = ?
+            p.id = ?
         
         `, [id]);
     return rows[0] || null;
@@ -87,7 +87,7 @@ export const partiallyUpdatePost = async (id, updates) => {
     return getPostById(id);
 };
 
-export const deletePOst = async (id) => {
+export const deletePost = async (id) => {
     const [result] = await pool.query('DELETE FROM posts where id = ?', [id]);
     return result.affectedRows > 0;
 };

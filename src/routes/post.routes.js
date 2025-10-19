@@ -8,14 +8,16 @@ import { validatePost  } from '../middleware/validator.middleware.js';
 import { createCommentForPost } from '../controllers/comment.controller.js';
 import { validateComment } from '../middleware/validator.middleware.js';
 import { authMiddleware } from '../middleware/auth.middleware.js';
+import { createPost } from '../controllers/post.controller.js';
+
 
 const router = Router();
 
-router.post('/', validatePost, postController.createPost);
+
 router.put('/:id', validatePost, postController.updatePost);
 router.patch('/:id', postController.partiallyUpdatePost);
 
-router.post('/', createPostRules, postController.createPost);
+
 
 router.get('/', postController.getAllPosts);
 router.get('/:id', postController.getPostById);

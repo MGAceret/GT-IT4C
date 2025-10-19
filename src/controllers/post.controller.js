@@ -2,6 +2,7 @@
 import * as postService from '../services/post.service.js';
 import { ApiResponse } from '../utils/ApiResponse.js';
 import asyncHandler from 'express-async-handler';
+import { validationResult } from 'express-validator';
 
 export const getAllPosts = async (req, res) => {
     try {
@@ -38,7 +39,7 @@ export const updatePost = async (req, res) => {
     }
 
     const postId = parseInt(req.params.id, 10);
-    const post = postService.updatePost(postId, req.body);
+    const post = await postService.updatePost(postId, req.body);
     if (!post) {
         return res.status(404).json({ message: 'Post not found.' });
     }
@@ -51,7 +52,7 @@ export const updatePost = async (req, res) => {
 export const partiallyUpdatePost = async (req, res) => {
     try { 
     const postId = parseInt(req.params.id, 10);
-    const post = postService.partiallyUpdatePost(postId, req.body);
+    const post = await postService.partiallyUpdatePost(postId, req.body);
     if (!post) {
         return res.status(404).json({ message: 'Post not found.' });
     }
