@@ -8,6 +8,7 @@ export const getAllPosts = async () => {
             p.id,
             p.title,
             p.content,
+            p.authorId,
             u.username AS authorUsername,
             u.email AS authorEmail
         FROM 
@@ -24,6 +25,7 @@ export const getPostById = async (id) => {
             p.id,
             p.title,
             p.content,
+            p.authorId,
             u.username AS authorUsername,
             u.email AS authorEmail
         FROM 
@@ -98,7 +100,14 @@ export const partiallyUpdatePost = async (id, updates) => {
 export const deletePost = async (id, userId) => { // Add userId as an argument
     // First, get the post to check for ownership
     const post = await getPostById(id); // This will throw a 404 if not found
+    console.log('Post fetched:', post);  // Add this line
 
+
+    // Post Check (determine whether post exists or not)
+    if (!post) {
+        throw new ApiError(404, "Post not found");
+    }
+    
     // AUTHORIZATION CHECK (Preventing User B to delete anyone's posts)
     if (post.authorId !== userId) {
         throw new ApiError(403, "Forbidden: You do not have permission to delete this post.");
