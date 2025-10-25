@@ -21,12 +21,14 @@ router.patch('/:id', postController.partiallyUpdatePost);
 
 router.get('/', postController.getAllPosts);
 router.get('/:id', postController.getPostById);
-router.put('/:id', updatePostRules, postController.updatePost);
-router.delete('/:id', postController.deletePost);
+// router.put('/:id', updatePostRules, postController.updatePost);
+// router.delete('/:id', postController.deletePost);
 
 router.post('/:postId/comments', validateComment, createCommentForPost);
 
-// Protected Route
+// Protected Routes
 router.post('/', authMiddleware, validatePost, postController.createPost);
+router.put('/:id', authMiddleware, validatePost, postController.updatePost);
+router.delete('/:id', authMiddleware, postController.deletePost);
 
 export default router;
