@@ -3,18 +3,24 @@ import { ApiError } from '../utils/ApiError.js';
 
 export const errorHandler = (err, req, res, next) => {
     let statusCode = 500;
-    let message = "Internal Server Error";
+    let message = err.message || "Internal Server Error";
 
     if (err instanceof ApiError) {
-        statusCode = err.statusCode;
-        message = err.message;
+        console.error(err);
+
+        if (process.env.NODE_ENV === 'production') {
+            message = "Something went wrong!"
+        }
     }
 
-    // You can add more specific error checks here if needed
-    // for things like database unique constraint errors, etc.
-
-    return res.status(statusCode).json({
+    const response = {
         success: false,
         message: message,
-    });
+    };
+
+    if (process.env.NODE_ENV === 'development') {
+        response.stack = err.stack;
+    }
+
+    res.status(statusCode).json(response);
 };
